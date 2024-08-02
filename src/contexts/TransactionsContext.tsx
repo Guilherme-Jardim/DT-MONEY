@@ -4,12 +4,12 @@ interface Transaction {
   id: number
   description: string
   type: 'income' | 'outcome'
+  price: number
   category: string
   createdAt: string
-  price: number
 }
 
-interface TransactionsContextType {
+interface TransactionContextType {
   transactions: Transaction[]
 }
 
@@ -17,12 +17,12 @@ interface TransactionsProviderProps {
   children: ReactNode
 }
 
-export const TransactionsContext = createContext({} as TransactionsContextType)
+export const TransactionsContext = createContext({} as TransactionContextType)
 
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  async function LoadTransactions() {
+  async function loadTransactions() {
     const response = await fetch('http://localhost:3333/transactions')
     const data = await response.json()
 
@@ -30,7 +30,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   }
 
   useEffect(() => {
-    LoadTransactions()
+    loadTransactions()
   }, [])
 
   return (

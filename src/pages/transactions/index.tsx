@@ -7,7 +7,7 @@ import {
   TransactionsContainer,
   TransactionsTable,
 } from './styles'
-import { TransactionsContext } from '../../contexts/TransactionsCOntext'
+import { TransactionsContext } from '../../contexts/TransactionsContext'
 
 export function Transactions() {
   const { transactions } = useContext(TransactionsContext)
