@@ -9,6 +9,7 @@ import { useContextSelector } from 'use-context-selector'
 const searchFormSchema = z.object({
   query: z.string(),
 })
+
 type SearchFormInputs = z.infer<typeof searchFormSchema>
 
 export function SearchForm() {
@@ -38,6 +39,7 @@ export function SearchForm() {
         placeholder="Busque por transações"
         {...register('query')}
       />
+
       <button type="submit" disabled={isSubmitting}>
         <MagnifyingGlass size={20} />
         Buscar

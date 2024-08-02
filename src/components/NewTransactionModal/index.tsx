@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
 import { Controller, useForm } from 'react-hook-form'
+import { useContextSelector } from 'use-context-selector'
 import * as z from 'zod'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
 
@@ -12,7 +13,6 @@ import {
   TransactionType,
   TransactionTypeButton,
 } from './styles'
-import { useContextSelector } from 'use-context-selector'
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -20,6 +20,7 @@ const newTransactionFormSchema = z.object({
   category: z.string(),
   type: z.enum(['income', 'outcome']),
 })
+
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
@@ -52,17 +53,21 @@ export function NewTransactionModal() {
       category,
       type,
     })
+
     reset()
   }
 
   return (
     <Dialog.Portal>
       <Overlay />
+
       <Content>
         <Dialog.Title>Nova Transação</Dialog.Title>
+
         <CloseButton>
           <X size={24} />
         </CloseButton>
+
         <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
           <input
             type="text"
@@ -82,6 +87,7 @@ export function NewTransactionModal() {
             required
             {...register('category')}
           />
+
           <Controller
             control={control}
             name="type"
@@ -103,6 +109,7 @@ export function NewTransactionModal() {
               )
             }}
           />
+
           <button type="submit" disabled={isSubmitting}>
             Cadastrar
           </button>
